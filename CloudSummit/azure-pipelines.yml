@@ -1,0 +1,20 @@
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'CloudSummit'
+    subscriptionId: '71818d77-4e18-47c8-8c36-b7af11e60bde'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'CloudSummit-08'
+    location: 'West Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: './storage-account.bicep'
+    overrideParameters: '-storageAccountPrefix "test"'
+    deploymentMode: 'Incremental'
